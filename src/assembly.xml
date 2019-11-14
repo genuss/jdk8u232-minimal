@@ -1,0 +1,66 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <id>risk_server</id>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <!-- specify the output formats -->
+    <formats>
+        <format>dir</format>
+        <format>zip</format>
+    </formats>
+
+    <!-- include all runtime libraries in the /lib folder of the output file -->
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <unpack>false</unpack>
+            <scope>runtime</scope>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <directory>../../</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>settings/</include>
+            </includes>
+            <excludes>
+                <exclude>settings/logback.xml</exclude>
+            </excludes>
+            <filtered>false</filtered>
+        </fileSet>
+    </fileSets>
+
+    <files>
+        <!-- Server -->
+        <file>
+            <outputDirectory></outputDirectory>
+            <source>src/main/scripts/manage-instance.sh</source>
+            <destName>manage-${instance_name}.sh</destName>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <outputDirectory>settings/</outputDirectory>
+            <source>../../settings/logback.xml</source>
+            <destName>logback-${instance_name}.xml</destName>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <outputDirectory></outputDirectory>
+            <source>src/main/scripts/server.sh</source>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <outputDirectory>settings/</outputDirectory>
+            <source>../../settings/nontrade-swap-config.xml</source>
+            <filtered>false</filtered>
+        </file>
+        <file>
+            <outputDirectory>settings/</outputDirectory>
+            <source>../../settings/forts-config.xml</source>
+            <filtered>false</filtered>
+        </file>
+    </files>
+
+</assembly>
